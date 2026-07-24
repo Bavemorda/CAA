@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Traducteur de phrases en pictogrammes</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="entete">
+    <h1>Traducteur de phrases en pictogrammes</h1>
+    <p class="sous-titre">Tapez une phrase en français, elle se transforme en bande de pictogrammes.</p>
+  </header>
+
+  <main>
+    <form id="form-phrase" class="formulaire">
+      <label for="champ-phrase" class="etiquette-champ">Votre phrase</label>
+      <textarea
+        id="champ-phrase"
+        rows="2"
+        placeholder="Exemple : le chat mange une pomme"
+        autofocus
+      ></textarea>
+      <button type="submit" class="bouton-principal">Traduire</button>
+    </form>
+
+    <fieldset id="choix-banques" class="choix-banques">
+      <legend>Banque(s) de pictogrammes</legend>
+      <label class="case-option">
+        <input type="checkbox" value="arasaac" checked />
+        ARASAAC
+      </label>
+      <label class="case-option">
+        <input type="checkbox" value="mulberry" checked />
+        Mulberry
+      </label>
+    </fieldset>
+
+    <label class="case-option case-mot-a-mot">
+      <input type="checkbox" id="choix-mot-a-mot" />
+      Mot-à-mot (garder les petits mots : le, la, un, de…)
+    </label>
+
+    <section id="bande" class="bande" aria-live="polite">
+      <p class="bande-vide">Tapez une phrase ci-dessus pour voir la bande de pictogrammes.</p>
+    </section>
+
+    <p id="licences" class="licences" aria-label="Attributions des banques de pictogrammes"></p>
+  </main>
+
+  <footer class="pied-page">
+    <p>
+      Fonctionne entièrement dans votre navigateur : aucune donnée n'est envoyée à un serveur
+      pendant la traduction (seules les images des pictogrammes sont chargées depuis leurs
+      banques d'origine).
+    </p>
+  </footer>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
