@@ -42,6 +42,72 @@ main {
   margin: 0 auto;
 }
 
+.zone-photo {
+  margin-top: 1.25rem;
+  padding: 1rem;
+  border: 2px solid var(--couleur-bordure);
+  border-radius: 0.75rem;
+  background: var(--couleur-accent-clair);
+}
+
+.zone-photo input[type="file"] {
+  display: block;
+  margin-top: 0.5rem;
+  max-width: 100%;
+}
+
+.apercu-photo {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.apercu-photo[hidden] {
+  display: none;
+}
+
+.apercu-photo img {
+  max-width: 10rem;
+  max-height: 10rem;
+  object-fit: contain;
+  border: 2px solid var(--couleur-bordure);
+  border-radius: 0.5rem;
+  background: white;
+}
+
+.bouton-secondaire {
+  font-size: 1rem;
+  padding: 0.6rem 1.2rem;
+  border: 2px solid var(--couleur-accent);
+  border-radius: 0.5rem;
+  background: white;
+  color: var(--couleur-accent);
+  cursor: pointer;
+  min-height: 44px;
+}
+
+.bouton-secondaire:hover:not(:disabled) {
+  background: var(--couleur-accent-clair);
+}
+
+.bouton-secondaire:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.statut-ocr {
+  margin: 0.5rem 0 0;
+  min-height: 1.2em;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+#bouton-export-pdf {
+  margin-top: 1rem;
+}
+
 .formulaire {
   display: flex;
   flex-direction: column;
@@ -258,4 +324,7 @@ button:focus {
   .bande { background: #1a1a1a; }
   .picto-case, .picto-alt-bouton { background: #1e1e1e; }
   .sous-titre, .licences, .pied-page { color: #bbb; }
+  .apercu-photo img { background: #1e1e1e; }
+  .bouton-secondaire { background: #1e1e1e; }
+  .statut-ocr { color: #ccc; }
 }

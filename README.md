@@ -7,7 +7,7 @@ dans le navigateur : aucune installation, aucun serveur.
 Le projet est décrit en détail dans [`CLAUDE.md`](./CLAUDE.md) (cahier de
 route : objectifs, architecture, décisions, plan par étapes).
 
-## État actuel : étape 1 (socle / MVP)
+## État actuel : étapes 1, 3 (PDF) et 4 (OCR)
 
 - Saisie de texte → lemmatisation → recherche dans un index local → bande de
   pictogrammes avec plusieurs propositions par mot, sélectionnables.
@@ -15,9 +15,13 @@ route : objectifs, architecture, décisions, plan par étapes).
   **Mulberry** (vocabulaire de base, ~95 mots, v1).
 - Les petits mots (articles, prépositions...) sont écartés par défaut ; case
   « Mot-à-mot » pour les garder.
+- **Photo → texte (OCR)** : `Tesseract.js`, texte imprimé en français, dans
+  une zone modifiable avant traduction (`src/ocr.js`).
+- **Export PDF** (`src/export.js`, via `jsPDF`) : la photo d'origine (si une
+  photo a été utilisée) en haut de page, la bande de pictogrammes en dessous.
 
-Pas encore fait : banque personnelle, export PDF/PNG, OCR photo, mode hors
-ligne — voir le plan par étapes dans `CLAUDE.md` (§10).
+Pas encore fait : banque personnelle, export PNG, mode hors ligne — voir le
+plan par étapes dans `CLAUDE.md` (§10).
 
 ## Utiliser le projet en local
 
@@ -54,6 +58,14 @@ node scripts/build-lemmes.mjs          # -> data/fr-lemmes.json
   réduite qu'ARASAAC. Voir `scripts/mulberry-fr-vocab.mjs` pour l'étendre.
 - Licences : ARASAAC est **CC BY-NC-SA** (non commercial), Mulberry est
   **CC BY-SA**. Attribution affichée dans l'appli.
+- **OCR** : texte imprimé uniquement (pas l'écriture manuscrite). Le premier
+  essai télécharge le moteur Tesseract.js et les données françaises
+  (quelques Mo) ; les essais suivants sont plus rapides. L'orientation EXIF
+  de la photo n'est pas corrigée automatiquement.
+- **Export PDF** : les pictogrammes affichés sont redessinés (rastérisés)
+  localement avant d'être insérés dans le PDF, ce qui suppose que les
+  serveurs d'images des banques autorisent cet usage (CORS) — c'est le cas
+  d'ARASAAC et de jsDelivr (Mulberry).
 
 ## Architecture en bref
 

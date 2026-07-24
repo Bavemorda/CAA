@@ -13,6 +13,16 @@
   </header>
 
   <main>
+    <section class="zone-photo">
+      <label for="champ-photo" class="etiquette-champ">Ou envoyer une photo d'un texte imprimé</label>
+      <input type="file" id="champ-photo" accept="image/*" capture="environment" />
+      <div id="apercu-photo" class="apercu-photo" hidden>
+        <img id="apercu-photo-image" alt="Photo choisie" />
+        <button type="button" id="bouton-lire-photo" class="bouton-secondaire">Lire le texte de la photo</button>
+      </div>
+      <p id="statut-ocr" class="statut-ocr" role="status" aria-live="polite"></p>
+    </section>
+
     <form id="form-phrase" class="formulaire">
       <label for="champ-phrase" class="etiquette-champ">Votre phrase</label>
       <textarea
@@ -46,16 +56,23 @@
     </section>
 
     <p id="licences" class="licences" aria-label="Attributions des banques de pictogrammes"></p>
+
+    <button type="button" id="bouton-export-pdf" class="bouton-secondaire" disabled>
+      Exporter en PDF
+    </button>
   </main>
 
   <footer class="pied-page">
     <p>
       Fonctionne entièrement dans votre navigateur : aucune donnée n'est envoyée à un serveur
-      pendant la traduction (seules les images des pictogrammes sont chargées depuis leurs
-      banques d'origine).
+      pendant la traduction. La lecture de photo (OCR) s'exécute aussi dans le navigateur ;
+      votre photo n'est jamais envoyée nulle part. Seules les images des pictogrammes sont
+      chargées depuis leurs banques d'origine, et le PDF est généré localement.
     </p>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
   <script type="module" src="src/main.js"></script>
 </body>
 </html>
