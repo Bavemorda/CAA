@@ -34,6 +34,17 @@ function nettoyerMot(mot) {
 }
 
 /**
+ * Normalise un mot pour comparaison (minuscules, ponctuation retirée) sans
+ * toucher aux accents. Contrairement à normaliserCle (qui sert d'index de
+ * recherche et doit être tolérant), cette fonction doit distinguer des mots
+ * différents comme "où" et "ou" — utilisée pour la liste des petits mots et
+ * pour repérer la correspondance exacte parmi plusieurs pictogrammes.
+ */
+export function normaliserMot(mot) {
+  return nettoyerMot(mot).toLowerCase();
+}
+
+/**
  * Donne la ou les formes candidates pour un mot : la forme telle quelle,
  * puis le lemme trouvé dans le dictionnaire, puis des repliements simples
  * (pluriel/féminin réguliers) si rien n'a été trouvé. L'appelant essaie ces
