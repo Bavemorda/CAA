@@ -11,8 +11,9 @@ route : objectifs, architecture, décisions, plan par étapes).
 
 - Saisie de texte → lemmatisation → recherche dans un index local → bande de
   pictogrammes avec plusieurs propositions par mot, sélectionnables.
-- Deux banques : **ARASAAC** (~13 800 pictogrammes, index complet) et
-  **Mulberry** (vocabulaire de base, ~95 mots, v1).
+- Une banque : **ARASAAC** (~13 800 pictogrammes, index complet). Mulberry a
+  été retiré (vocabulaire trop limité en v1) ; l'architecture « source »
+  permet d'en rebrancher une plus tard sans toucher au moteur de traduction.
 - Les petits mots (articles, prépositions...) sont écartés par défaut ; case
   « Mot-à-mot » pour les garder.
 - **Photo → texte (OCR)** : `Tesseract.js`, texte imprimé en français, dans
@@ -42,7 +43,6 @@ banques ou étendre le vocabulaire.
 
 ```bash
 node scripts/build-index-arasaac.mjs   # -> data/index-arasaac.json
-node scripts/build-index-mulberry.mjs  # -> data/index-mulberry.json (vocabulaire dans mulberry-fr-vocab.mjs)
 node scripts/build-lemmes.mjs          # -> data/fr-lemmes.json
 ```
 
@@ -52,20 +52,19 @@ node scripts/build-lemmes.mjs          # -> data/fr-lemmes.json
   table de verbes/mots irréguliers courants (voir `scripts/build-lemmes.mjs`),
   pas un lexique complet type Lexique/Lefff. Un mot rare ou une forme rare
   peut ne pas être ramené à son lemme ; il est alors cherché tel quel.
-- **Mulberry** : Mulberry n'a pas de traduction française officielle et son
-  vocabulaire est orienté objets concrets (pas de mot comme « bonjour » ou
-  « merci » dans ce jeu) ; la couverture v1 est donc volontairement plus
-  réduite qu'ARASAAC. Voir `scripts/mulberry-fr-vocab.mjs` pour l'étendre.
-- Licences : ARASAAC est **CC BY-NC-SA** (non commercial), Mulberry est
-  **CC BY-SA**. Attribution affichée dans l'appli.
+- Licence : ARASAAC est **CC BY-NC-SA** (non commercial). Attribution
+  affichée dans l'appli.
+- **Homographes** : quand un mot a plusieurs sens (« est » = verbe être ou
+  point cardinal), la lemmatisation est essayée en priorité — « est » cherche
+  donc d'abord « être ». Ordre des candidats dans `src/lemmatizer.js`
+  (`lemmatiser()`).
 - **OCR** : texte imprimé uniquement (pas l'écriture manuscrite). Le premier
   essai télécharge le moteur Tesseract.js et les données françaises
   (quelques Mo) ; les essais suivants sont plus rapides. L'orientation EXIF
   de la photo n'est pas corrigée automatiquement.
 - **Export PDF** : les pictogrammes affichés sont redessinés (rastérisés)
-  localement avant d'être insérés dans le PDF, ce qui suppose que les
-  serveurs d'images des banques autorisent cet usage (CORS) — c'est le cas
-  d'ARASAAC et de jsDelivr (Mulberry).
+  localement avant d'être insérés dans le PDF, ce qui suppose que le serveur
+  d'images de la banque autorise cet usage (CORS) — c'est le cas d'ARASAAC.
 
 ## Architecture en bref
 

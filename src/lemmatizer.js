@@ -45,10 +45,14 @@ export function normaliserMot(mot) {
 }
 
 /**
- * Donne la ou les formes candidates pour un mot : la forme telle quelle,
- * puis le lemme trouvé dans le dictionnaire, puis des repliements simples
- * (pluriel/féminin réguliers) si rien n'a été trouvé. L'appelant essaie ces
- * candidats dans l'ordre jusqu'à ce qu'une banque de pictogrammes réponde.
+ * Donne la ou les formes candidates pour un mot : le lemme trouvé dans le
+ * dictionnaire en premier (conformément au principe « lemmatisation puis
+ * recherche », voir CLAUDE.md §3), la forme telle quelle ensuite, puis des
+ * repliements simples (pluriel/féminin réguliers). Chercher le lemme en
+ * priorité évite par exemple qu'un mot conjugué comme "est" (-> "être") ne
+ * tombe d'abord sur un homographe sans rapport (le point cardinal "Est").
+ * L'appelant essaie ces candidats dans l'ordre jusqu'à ce qu'une banque de
+ * pictogrammes réponde.
  */
 export async function lemmatiser(motBrut) {
   const mot = nettoyerMot(motBrut);
@@ -56,10 +60,11 @@ export async function lemmatiser(motBrut) {
 
   const table = await chargerTable();
   const cle = normaliserCle(mot);
-  const candidats = [mot];
+  const candidats = [];
 
   const lemme = table[cle];
   if (lemme && lemme !== cle) candidats.push(lemme);
+  candidats.push(mot);
 
   // Repli : pluriel régulier (-s / -x)
   if (cle.endsWith("s") || cle.endsWith("x")) {

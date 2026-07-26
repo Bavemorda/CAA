@@ -1,14 +1,13 @@
 import { traduire } from "./translate.js";
 import { afficherBande } from "./render.js";
 import { arasaacSource } from "./sources/arasaac.js";
-import { mulberrySource } from "./sources/mulberry.js";
 import { lireTexte } from "./ocr.js";
 import { fichierVersDataUrl } from "./photo.js";
 import { exporterPdf } from "./export.js";
 
 // Registre des banques disponibles. Ajouter une banque = ajouter une ligne ici
 // (et un fichier dans src/sources/ qui respecte l'interface de source.js).
-const SOURCES_DISPONIBLES = [arasaacSource, mulberrySource];
+const SOURCES_DISPONIBLES = [arasaacSource];
 
 const form = document.getElementById("form-phrase");
 const champPhrase = document.getElementById("champ-phrase");
